@@ -87,7 +87,11 @@
     </extensions>
 
     <actions>
-
+        <action id="MyNewBinaryFileAction" class="com.jmpeax.ssltoolbox.pem.wizards.NewCertWizardAction" text="New X509 Certificate"
+                description="Creates a new X509 Certificate">
+            <!-- Add this action to the "New" menu -->
+            <add-to-group group-id="NewGroup" anchor="last"/>
+        </action>
         <group id="JKS-Actions"
                text="JKS Actions" description="JKS actions"
                popup="true" icon="AllIcons.Ide.ConfigFile">
