@@ -2,13 +2,17 @@ package com.jmpeax.ssltoolbox.pem;
 
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.ui.components.JBPanel;
+import com.intellij.ui.components.JBTextArea;
 import com.intellij.ui.components.JBTextField;
 import com.intellij.util.ui.JBUI;
 import com.jmpeax.ssltoolbox.utils.Messages;
+import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -127,6 +131,17 @@ public class PemView extends JBPanel<PemView> {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(buildText(certificate.getSigAlgName()), gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.weightx = 0;    // Reset weightx for the label
+        gbc.fill = GridBagConstraints.NONE; // Reset fill for the label
+        add(buildLabel("PEM Text"), gbc);
+
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        add(buildTextArea(getCertificatePemText(certificate)), gbc);
+
         // Add spacer to push content to the top
         gbc.gridx = 0;
         gbc.gridy = 7;
@@ -149,8 +164,27 @@ public class PemView extends JBPanel<PemView> {
         return textField;
     }
 
+    private JBTextArea buildTextArea(String text) {
+        var textArea = new JBTextArea(text,30,70);
+        textArea.setEditable(false);
+        textArea.setLineWrap(false);
+        textArea.setCaretPosition(0);
+        return textArea;
+    }
+
     private JLabel buildLabel(String nlsKey){
         return new JLabel(this.messages.getMessage(nlsKey));
     }
 
+    private String getCertificatePemText(X509Certificate certificate) {
+        StringWriter writer = new StringWriter();
+        JcaPEMWriter pemWriter = new JcaPEMWriter(writer);
+        try {
+            pemWriter.writeObject(certificate);
+            pemWriter.flush();
+            return writer.toString();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
