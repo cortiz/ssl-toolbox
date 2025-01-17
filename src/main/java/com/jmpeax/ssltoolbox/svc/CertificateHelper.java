@@ -159,6 +159,14 @@ public final class CertificateHelper {
         }
     }
 
+    /**
+     * Exports an X.509 certificate from a specified keystore file using the given alias and password.
+     *
+     * @param ksVirtualFile the virtual file representing the keystore containing the certificate
+     * @param selectedAlias the alias of the certificate to export
+     * @param password      the password to access the keystore
+     * @return the X.509 certificate associated with the specified alias, or null if an error occurs
+     */
     public @Nullable X509Certificate exportCertificate(VirtualFile ksVirtualFile,
                                                        String selectedAlias,
                                                        char[] password) {
@@ -172,6 +180,16 @@ public final class CertificateHelper {
         }
     }
 
+    /**
+     * Exports a certificate associated with the given alias from a keystore file to a byte stream.
+     * If no certificate is found, an empty {@link ByteArrayOutputStream} is returned.
+     *
+     * @param ksVirtualFile the virtual file representing the keystore containing the certificate
+     * @param selectedAlias the alias of the certificate to export
+     * @param password the password to access the keystore
+     * @return a {@link ByteArrayOutputStream} containing the exported certificate in PEM format,
+     *         or an empty {@link ByteArrayOutputStream} if the certificate could not be exported
+     */
     public @NotNull ByteArrayOutputStream exportCertificateToByte(VirtualFile ksVirtualFile,
                                                                   String selectedAlias,
                                                                   char[] password) {
@@ -182,6 +200,14 @@ public final class CertificateHelper {
         return exportCertificate(cert);
     }
 
+    /**
+     * Exports the given X.509 certificate to a {@link ByteArrayOutputStream} in PEM format.
+     * If an error occurs during the export process, an empty {@link ByteArrayOutputStream} is returned.
+     *
+     * @param certificate the X.509 certificate to export
+     * @return a {@link ByteArrayOutputStream} containing the exported certificate in PEM format,
+     *         or an empty {@link ByteArrayOutputStream} if an error occurs
+     */
     public @NotNull ByteArrayOutputStream exportCertificate(@NotNull X509Certificate certificate) {
         try {
             var out = new ByteArrayOutputStream();
@@ -195,6 +221,13 @@ public final class CertificateHelper {
         }
     }
 
+    /**
+     * Removes a certificate from the specified keystore file.
+     *
+     * @param ksVirtualFile the virtual file representing the keystore from which the certificate will be removed
+     * @param certAlias     the alias of the certificate to be removed
+     * @param password      the password used to access the keystore
+     */
     public void removeCertificate(VirtualFile ksVirtualFile, String certAlias, char[] password) {
         try (var is = ksVirtualFile.getInputStream();
              var out = Files.newOutputStream(ksVirtualFile.toNioPath(), StandardOpenOption.WRITE)) {

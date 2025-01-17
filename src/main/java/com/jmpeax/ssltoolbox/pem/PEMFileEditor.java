@@ -20,8 +20,6 @@ public class PEMFileEditor extends FileEditorBase {
     private final VirtualFile file;
     private final JBTabbedPane panel;
 
-
-
     public PEMFileEditor(@NotNull VirtualFile file)
             throws CertificateException, IOException {
         this.file = file;
