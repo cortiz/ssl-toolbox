@@ -44,7 +44,7 @@ import java.util.Date;
 public class PemView extends JBPanel<PemView> {
 
     private final Messages messages;
-    public PemView(@NotNull X509Certificate certificate) {
+    public PemView(@NotNull X509Certificate certificate, boolean showPEMText) {
         super(new GridBagLayout());
         messages = ApplicationManager.getApplication().getService(Messages.class);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -131,16 +131,18 @@ public class PemView extends JBPanel<PemView> {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(buildText(certificate.getSigAlgName()), gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 7;
-        gbc.weightx = 0;    // Reset weightx for the label
-        gbc.fill = GridBagConstraints.NONE; // Reset fill for the label
-        add(buildLabel("PEM Text"), gbc);
+        if (showPEMText) {
+            gbc.gridx = 0;
+            gbc.gridy = 7;
+            gbc.weightx = 0;    // Reset weightx for the label
+            gbc.fill = GridBagConstraints.NONE; // Reset fill for the label
+            add(buildLabel("PEM Text"), gbc);
 
-        gbc.gridx = 1;
-        gbc.weightx = 1.0;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        add(buildTextArea(getCertificatePemText(certificate)), gbc);
+            gbc.gridx = 1;
+            gbc.weightx = 1.0;
+            gbc.fill = GridBagConstraints.VERTICAL;
+            add(buildTextArea(getCertificatePemText(certificate)), gbc);
+        }
 
         // Add spacer to push content to the top
         gbc.gridx = 0;

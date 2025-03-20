@@ -59,6 +59,25 @@ public final class CertificateHelper {
     }
 
     /**
+     * Retrieves a set of X.509 certificates from the given String
+     *
+     * @param certificateInput the input stream from which to retrieve the certificates
+     * @return a set of X.509 certificates obtained from the input stream
+     */
+    public @NotNull Set<X509Certificate> getCertificate(@NotNull String certificateInput) {
+        if (certificateInput.isBlank()) {
+            return Set.of();
+        }
+        try (var is =  new ByteArrayInputStream(certificateInput.getBytes())) {
+            var fac = CertificateFactory.getInstance("X.509");
+            return fac.generateCertificates(is).stream().map(c -> (X509Certificate) c).collect(Collectors.toCollection(LinkedHashSet::new));
+        } catch (IOException | CertificateException e) {
+            LOGGER.warn("Unable to create Certification Factory", e);
+        }
+        return Set.of();
+    }
+
+    /**
      * Retrieves the Common Name (CN) from the subject of the given X509Certificate.
      *
      * @param certificate the X509Certificate from which to retrieve the Common Name

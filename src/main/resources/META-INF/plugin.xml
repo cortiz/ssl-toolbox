@@ -74,7 +74,7 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <fileEditorProvider implementation="com.jmpeax.ssltoolbox.pem.PEMFileEditorProvider" />
+        <fileEditorProvider implementation="com.jmpeax.ssltoolbox.pem.v2.editor.PemFileEditorProvider" />
         <fileType
                 name="PEM file"
                 implementationClass="com.jmpeax.ssltoolbox.pem.PEMFileType"
