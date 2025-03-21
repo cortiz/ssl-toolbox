@@ -49,11 +49,12 @@ public final class CertificateHelper {
      * @return a set of X.509 certificates obtained from the input stream
      */
     public @NotNull Set<X509Certificate> getCertificate(@NotNull VirtualFile certificateInput) {
+
         try (var is = certificateInput.getInputStream()) {
             var fac = CertificateFactory.getInstance("X.509");
             return fac.generateCertificates(is).stream().map(c -> (X509Certificate) c).collect(Collectors.toCollection(LinkedHashSet::new));
         } catch (IOException | CertificateException e) {
-            LOGGER.error("Unable to create Certification Factory", e);
+            LOGGER.warn("Unable to create Certification Factory", e);
         }
         return Set.of();
     }
@@ -68,6 +69,7 @@ public final class CertificateHelper {
         if (certificateInput.isBlank()) {
             return Set.of();
         }
+
         try (var is =  new ByteArrayInputStream(certificateInput.getBytes())) {
             var fac = CertificateFactory.getInstance("X.509");
             return fac.generateCertificates(is).stream().map(c -> (X509Certificate) c).collect(Collectors.toCollection(LinkedHashSet::new));

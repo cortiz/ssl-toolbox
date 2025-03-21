@@ -23,7 +23,11 @@ import java.util.Set;
 public class PemFileEditorProvider implements FileEditorProvider {
     @Override
     public boolean accept(@NotNull Project project, @NotNull VirtualFile file) {
-        return switch (Objects.requireNonNull(file.getExtension()).toLowerCase()) {
+        String fileExtension = file.getExtension();
+        if(fileExtension == null) {
+            return false;
+        }
+        return switch (Objects.requireNonNull(fileExtension).toLowerCase()) {
             case "pem", "cer", "der", "crt", "ca-bundle", "p7b", "p7c", "cert" -> true;
             default -> false;
         };
