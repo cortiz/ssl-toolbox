@@ -74,7 +74,7 @@ public class JKSView extends JPanel {
         if (pemView != null) {
             pemViewPanel.remove(pemView);
         }
-        pemView = new PemView(certificate);
+        pemView = new PemView(certificate,true);
         pemViewPanel.removeAll();
         pemViewPanel.add(pemView, BorderLayout.CENTER);
         revalidate();

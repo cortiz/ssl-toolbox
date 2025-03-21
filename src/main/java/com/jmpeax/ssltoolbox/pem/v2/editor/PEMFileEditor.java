@@ -1,10 +1,11 @@
-package com.jmpeax.ssltoolbox.pem;
+package com.jmpeax.ssltoolbox.pem.v2.editor;
 
 import com.intellij.diff.util.FileEditorBase;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.components.JBTabbedPane;
+import com.jmpeax.ssltoolbox.pem.PemView;
 import com.jmpeax.ssltoolbox.svc.CertificateHelper;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
@@ -14,23 +15,21 @@ import javax.swing.*;
 import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Set;
 
 public class PEMFileEditor extends FileEditorBase {
 
     private final VirtualFile file;
-    private final JBTabbedPane panel;
-
+    private final CertificateHelper certificateHelper;
+    private JBTabbedPane panel;
+    
     public PEMFileEditor(@NotNull VirtualFile file)
             throws CertificateException, IOException {
         this.file = file;
         this.panel = new JBTabbedPane();
-        var certificateHelper = ApplicationManager.getApplication().getService(CertificateHelper.class);
-        var c = certificateHelper.getCertificate(file);
-        if (c.isEmpty()){
-            this.panel.add(new JLabel("Error loading " + file.getName()));
-        }else {
-            c.forEach(x509Certificate -> buildTabbedPane(certificateHelper, x509Certificate));
-        }
+        this.certificateHelper = ApplicationManager.getApplication().getService(CertificateHelper.class);
+        var cert = certificateHelper.getCertificate(file);
+        load(cert,certificateHelper);
     }
 
     private void buildTabbedPane(CertificateHelper certificateHelper,X509Certificate x509Certificate) {
@@ -41,7 +40,6 @@ public class PEMFileEditor extends FileEditorBase {
             this.panel.addTab(name, AllIcons.Ide.FatalError, new PemView(x509Certificate,false));
         }
     }
-
 
     @Override
     public @NotNull JComponent getComponent() {
@@ -61,5 +59,20 @@ public class PEMFileEditor extends FileEditorBase {
     @Override
     public VirtualFile getFile() {
         return file;
+    }
+
+    public void reload(@NotNull CharSequence newFragment) {
+        this.panel.removeAll();
+        var cert = certificateHelper.getCertificate(newFragment.toString());
+        load(cert,certificateHelper);
+    }
+
+    private void load(@Nullable Set<X509Certificate> cert, CertificateHelper certificateHelper) {
+
+        if (cert==null || cert.isEmpty()){
+            this.panel.add(new JLabel("Error loading " + file.getName()));
+        }else {
+            cert.forEach(x509Certificate -> buildTabbedPane(certificateHelper, x509Certificate));
+        }
     }
 }

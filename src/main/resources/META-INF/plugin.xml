@@ -21,6 +21,39 @@
       directly within the IntelliJ IDEA environment.</p>
   ]]></description>
     <change-notes><![CDATA[
+     <h1>SSL Toolbox Plugin Update - Version 0.1.5</h1>
+       <p><strong>Release Date:</strong> March 21, 2025</p>
+        <div class="section">
+            <h2>New Features</h2>
+            <ul>
+                <li>
+                    <a href="https://github.com/cortiz/ssl-toolbox/issues/8">
+                        <h3>Enhanced PEM Viewer with Side-by-Side View</h3>
+                        <p>New PEM Viewer now supports side-by-side viewing with markdown preview, raw PEM content, and certificate details for better certificate management</p>
+                </li>
+                <li>
+                    <h3>In-Memory PEM Viewer</h3>
+                    <p>Added capability to create and view temporary PEM files in memory without saving them to disk</p>
+                </li>
+            </ul>
+            <h2>Improvements</h2>
+            <ul>
+                <li>
+                    <h3>Support for Latest IntelliJ IDEA Versions</h3>
+                    <p>Added support for the latest IntelliJ IDEA versions, including the latest EAP builds</p>
+                </li>
+            </ul>
+            <h2>Bug Fixes</h2>
+            <ul>
+                <li>
+                    <a href="https://github.com/cortiz/ssl-toolbox/issues/9">
+                        <h3>Fixed Null Pointer Exception</h3>
+                        <p>Fixed a null pointer exception that could occur during certificate processing</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <hr/>
      <h1>SSL Toolbox Plugin Update - Version 0.1.4</h1>
         <p><strong>Release Date:</strong> September 16, 2024</p>
         <div class="section">
@@ -74,7 +107,7 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <fileEditorProvider implementation="com.jmpeax.ssltoolbox.pem.PEMFileEditorProvider" />
+        <fileEditorProvider implementation="com.jmpeax.ssltoolbox.pem.v2.editor.PemFileEditorProvider" />
         <fileType
                 name="PEM file"
                 implementationClass="com.jmpeax.ssltoolbox.pem.PEMFileType"
@@ -87,6 +120,14 @@
     </extensions>
 
     <actions>
+        <action class="com.jmpeax.ssltoolbox.pem.v2.actions.NewCertFile"
+                id="new-cert-file"
+                text="New Certificate File"
+                description="Create a new certificate file"
+                icon="AllIcons.FileTypes.Any_type">
+        >
+                <add-to-group group-id="NewGroup" anchor="last"/>
+        </action>
 
         <group id="JKS-Actions"
                text="JKS Actions" description="JKS actions"

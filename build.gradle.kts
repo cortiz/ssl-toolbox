@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.jmpeax"
-version = "0.1.5-alpha"
+version = "0.1.5"
 
 repositories {
     mavenCentral()
@@ -32,7 +32,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("232")
-        untilBuild.set("251.*")
+        untilBuild.set("252.*")
     }
 
     signPlugin {
