@@ -39,8 +39,8 @@ public class ExportCert extends AnAction {
             Messages.showErrorDialog("No certificate selected", "No Certificate Selected");
             return;
         }
-        var descriptor = new FileSaverDescriptor("Export Certificate", "Export certificate", "cer");
-
+        var descriptor = new FileSaverDescriptor("Export Certificate", "Export certificate");
+        descriptor.withExtensionFilter(".cer");
         var pwd = Messages.showPasswordDialog("Keystore password", "KeyStore Password");
         if (pwd != null && !pwd.isBlank()) {
             var f = FileChooserFactory.getInstance().createSaveFileDialog(descriptor, view).save(selectedAlias + ".cer");

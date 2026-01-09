@@ -28,7 +28,7 @@ public class PemEditor extends TextEditorWithPreview {
                     throw new RuntimeException(e);
                 }
             }
-        });
+        },this);
 
     }
 
