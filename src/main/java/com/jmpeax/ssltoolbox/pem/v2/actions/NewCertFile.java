@@ -1,5 +1,6 @@
 package com.jmpeax.ssltoolbox.pem.v2.actions;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.fileEditor.FileEditorManager;
@@ -40,5 +41,10 @@ public class NewCertFile extends AnAction {
     public void update(@NotNull AnActionEvent e) {
         // This action is available only if a project is open
         e.getPresentation().setEnabledAndVisible(e.getProject() != null);
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
     }
 }
