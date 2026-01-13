@@ -2,7 +2,6 @@ package com.jmpeax.ssltoolbox.jks;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.actionSystem.impl.SimpleDataContext;
 import com.intellij.openapi.application.ApplicationManager;
 
 import com.intellij.openapi.vfs.VirtualFile;
@@ -158,7 +157,7 @@ public class JKSView extends JPanel {
         ActionGroup actionGroup = (ActionGroup) ActionManager.getInstance().getAction("JKS-Actions");
         ActionToolbar actionToolBar = ActionManager.getInstance().createActionToolbar("JKS-Actions-Toolbar", actionGroup, true);
         actionToolBar.setTargetComponent(this);
-        DataContext dataContext = SimpleDataContext.getSimpleContext(DataKey.create("file"),file);
+        DataContext dataContext = dataId -> this.file;
         actionToolBar.getComponent().putClientProperty(DataContext.class, dataContext);
 
 
