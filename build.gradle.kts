@@ -5,11 +5,11 @@ plugins {
 }
 
 group = "com.jmpeax"
-version = "0.1.6"
+version = "0.17"
 
 dependencies {
     intellijPlatform {
-        intellijIdeaCommunity("2024.3.1.1")
+        intellijIdea("2025.3.4")
 
         pluginVerifier()
         zipSigner()
@@ -19,7 +19,7 @@ dependencies {
 intellijPlatform {
     pluginConfiguration {
         ideaVersion {
-            sinceBuild = "232"
+            sinceBuild = "253"
         }
     }
 
