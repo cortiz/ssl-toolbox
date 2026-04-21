@@ -29,6 +29,16 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
 
+      - name: Upload Signed JAR to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/distributions/*.zip
+          asset_name: plugin-signed.jar
+          asset_content_type: application/java-archive
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -42,13 +52,3 @@ jobs:
             - TBD
           draft: true
           prerelease: false
-
-      - name: Upload Signed JAR to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/distributions/*.zip
-          asset_name: plugin-signed.jar
-          asset_content_type: application/java-archive
