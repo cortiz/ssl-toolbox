@@ -21,6 +21,22 @@
       directly within the IntelliJ IDEA environment.</p>
   ]]></description>
     <change-notes><![CDATA[
+     <h1>SSL Toolbox Plugin Update - Version 0.17</h1>
+       <p><strong>Release Date:</strong> April 21, 2026</p>
+        <div class="section">
+            <h2>Improvements</h2>
+            <ul>
+                <li>
+                    <h3>Support for Latest IntelliJ IDEA Versions</h3>
+                    <p>Removed upper version bound (untilBuild) so the plugin is compatible with all future IDE builds from 2025.3 onwards</p>
+                </li>
+                <li>
+                    <h3>Migrated to IntelliJ Platform Gradle Plugin 2.x</h3>
+                    <p>Upgraded build tooling from Gradle IntelliJ Plugin 1.x to IntelliJ Platform Gradle Plugin 2.11.0, Kotlin 2.1.20, and Gradle 8.14</p>
+                </li>
+            </ul>
+        </div>
+        <hr/>
      <h1>SSL Toolbox Plugin Update - Version 0.1.5</h1>
        <p><strong>Release Date:</strong> March 21, 2025</p>
         <div class="section">
