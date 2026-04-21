@@ -34,6 +34,10 @@
                     <h3>Migrated to IntelliJ Platform Gradle Plugin 2.x</h3>
                     <p>Upgraded build tooling from Gradle IntelliJ Plugin 1.x to IntelliJ Platform Gradle Plugin 2.11.0, Kotlin 2.1.20, and Gradle 8.14</p>
                 </li>
+                <li>
+                    <h3>Requires Java 21</h3>
+                    <p>Java 21 is now the minimum required runtime version, as the IntelliJ IDEA 2025.3 SDK is compiled with Java 21</p>
+                </li>
             </ul>
         </div>
         <hr/>
